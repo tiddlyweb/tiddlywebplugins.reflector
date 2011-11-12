@@ -1,0 +1,6 @@
+
+Testing for this module is fairly manual:
+
+twanager server
+open http://0.0.0.0:8080/test.html
+fill out the form
