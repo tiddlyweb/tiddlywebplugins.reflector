@@ -1,6 +1,9 @@
 """
-A quick plugin to take anything POSTed as a file 
+A quick plugin to take anything POSTed as a file
 upload on /reflector and reflect it back.
+
+To install, add tiddlywebplugins.reflector to system_plugins
+in tiddlywebconfig.py.
 """
 
 import cgi
@@ -8,7 +11,11 @@ import urllib2
 
 from tiddlyweb.web.http import HTTP400
 
+
 def init(config):
+    """
+    Add the reflector selector.
+    """
     if 'selector' in config:
         config['selector'].add('/reflector', POST=reflect)
 
@@ -33,7 +40,7 @@ def reflect(environ, start_response):
             request = urllib2.Request(uri)
             if (request.get_type() != 'file'):
                 filehandle = urllib2.urlopen(uri)
-                type = filehandle.info()['content-type']
+                filetype = filehandle.info()['content-type']
             else:
                 raise ValueError('file: not allowed')
         except (ValueError, AttributeError, urllib2.URLError), exc:
@@ -41,7 +48,7 @@ def reflect(environ, start_response):
     elif 'file' in form and form['file'].file:
         try:
             filehandle = form['file'].file
-            type = form['file'].type
+            filetype = form['file'].type
             # XXX: this might have charset in it
             #options = form['file'].type_options
         except (AttributeError, ValueError), exc:
@@ -50,7 +57,7 @@ def reflect(environ, start_response):
         raise HTTP400('Incomplete form')
 
     start_response('200 OK', [
-        ('Content-Type', type)])
+        ('Content-Type', filetype)])
     # XXX If reading the file causes an exception
     # it will be trapped as a 500 by HTTPExceptor.
     # Better handling may be desired.
