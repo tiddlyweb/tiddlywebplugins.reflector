@@ -9,7 +9,7 @@ in tiddlywebconfig.py.
 import cgi
 import urllib2
 
-from tiddlyweb.web.http import HTTP400
+from httpexceptor import HTTP400
 
 
 def init(config):

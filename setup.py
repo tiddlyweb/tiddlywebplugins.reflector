@@ -2,7 +2,7 @@ AUTHOR = 'Chris Dent'
 AUTHOR_EMAIL = 'cdent@peermore.com'
 NAME = 'tiddlywebplugins.reflector'
 DESCRIPTION = 'Send the file posted to the tiddlyweb server back to the browser.'
-VERSION = '0.8'
+VERSION = '0.9'
 
 
 import os
@@ -21,7 +21,7 @@ setup(
     url = 'http://pypi.python.org/pypi/%s' % NAME,
     platforms = 'Posix; MacOS X; Windows',
     packages = find_packages(exclude=['test']),
-    install_requires = ['setuptools', 'tiddlyweb'],
+    install_requires = ['setuptools', 'httpexceptor', 'tiddlyweb>=1.3.0'],
     zip_safe = False,
     license = 'BSD',
     )
